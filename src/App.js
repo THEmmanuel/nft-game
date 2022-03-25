@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import twitterLogo from './assets/twitter-logo.svg';
 import './App.css';
 
@@ -7,14 +7,48 @@ const TWITTER_HANDLE = '_buildspace';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 
 const App = () => {
-	const checkIfWalletIsConnected = () => {
-		const { ethereum } = window;
+	// state variable we use to store our user's public wallet
+	const [currentAccount, setCurrentAccount] = useState(null);
 
-		if (!ethereum) {
-			console.log('Make sure you have Metamask');
-			return;
-		} else {
-			console.log('We have the ethereum object', ethereum);
+	const checkIfWalletIsConnected = async () => {
+		try {
+			const { ethereum } = window;
+			if (!ethereum) {
+				console.log('Make sure you have Metamask');
+				return;
+			} else {
+				console.log('We have the ethereum object', ethereum);
+				const accounts = await ethereum.request({ method: 'eth_accounts' });
+				if (accounts.length !== 0) {
+					const account = accounts[0];
+					console.log('Found an authorized account:', account);
+					setCurrentAccount(account);
+				} else {
+					console.log('No authorized account found');
+				}
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const connectWalletHandler = async () => {
+		try {
+			const { ethereum } = window;
+			if (!ethereum) {
+				alert('Get Metamask')
+				return
+			}
+
+			// request access to account.
+			const accounts = await ethereum.request({
+				method: 'eth.requestAccounts',
+			});
+
+			console.log('Connected', accounts[0]);
+			setCurrentAccount(accounts[0]);
+		} catch (error) {
+			console.log(error);
 		}
 	};
 
@@ -33,6 +67,13 @@ const App = () => {
 							src="https://64.media.tumblr.com/tumblr_mbia5vdmRd1r1mkubo1_500.gifv"
 							alt="Monty Python Gif"
 						/>
+
+						<button
+							className="cta-button connect-wallet-button"
+							onClick={connectWalletHandler}
+						>
+							Connect Wallet to get started
+						</button>
 					</div>
 				</div>
 				<div className="footer-container">
