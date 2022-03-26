@@ -54,9 +54,29 @@ const SelectCharacter = ({ setCharacterNFT }) => {
 			}
 		};
 
+		const onCharacterMint = async (sender, tokenId, characterIndex) => {
+			console.log(
+				`CharacterNFTMinted - sender: ${sender} tokenId: ${tokenId.toNumber()} characterIndex: ${characterIndex.toNumber()}`
+			);
+
+			if (gameContract) {
+				const characterNFT = await gameContract.checkIfUserHasNFT();
+				console.log('CharacterNFT: ', characterNFT);
+				setCharacterNFT(transformCharacterData(characterNFT));
+			}
+		};
+
 		if (gameContract) {
 			getCharacters();
+			gameContract.on('CharacterNFTMinted', onCharacterMint);
 		}
+
+		return () => {
+			if (gameContract) {
+				gameContract.off('CharacterNFTMinted', onCharacterMint);
+			}
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [gameContract])
 
 
@@ -71,7 +91,7 @@ const SelectCharacter = ({ setCharacterNFT }) => {
 				<button
 					type='button'
 					className='character-mint-button'
-				// onClick={() => mintCharacterNFTAction(index)}
+					onClick={() => mintCharacterNFTAction(index)}
 				>{`Mint ${character.name}`}</button>
 			</div>
 		))
