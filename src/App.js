@@ -10,6 +10,7 @@ const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 const App = () => {
 	// State
 	const [currentAccount, setCurrentAccount] = useState(null);
+	const [characterNFT, setCharacterNFT] = useState(null);
 
 	// Actions
 	const checkIfWalletIsConnected = async () => {
@@ -37,6 +38,28 @@ const App = () => {
 		}
 	};
 
+	const renderContent = () => {
+		if (!currentAccount) {
+			return (
+				<div className="connect-wallet-container">
+					<img
+						src="https://media.giphy.com/media/X6aDDzm9Kv1YsvluTU/giphy.gif"
+						alt="Monty Python Gif"
+					/>
+
+					<button
+						className="cta-button connect-wallet-button"
+						onClick={connectWalletHandler}
+					>
+						Connect Wallet To Get Started
+					</button>
+				</div>
+			);
+		} else if (currentAccount && !characterNFT) {
+			return <SelectCharacter setCharacterNFT={setCharacterNFT} />
+		}
+	};
+
 	const connectWalletHandler = async () => {
 		try {
 			const { ethereum } = window;
@@ -46,9 +69,7 @@ const App = () => {
 				return;
 			}
 
-			/*
-			 * Fancy method to request access to account.
-			 */
+			//  request access to account.
 			const accounts = await ethereum.request({
 				method: 'eth_requestAccounts',
 			});
@@ -73,22 +94,7 @@ const App = () => {
 				<div className="header-container">
 					<p className="header gradient-text">⚔️ Metaverse Slayer ⚔️</p>
 					<p className="sub-text">Team up to protect the Metaverse!</p>
-					<div className="connect-wallet-container">
-						<img
-							src="https://media.giphy.com/media/X6aDDzm9Kv1YsvluTU/giphy.gif"
-							alt="Monty Python Gif"
-						/>
-						{/*
-             * Button that we will use to trigger wallet connect
-             * Don't forget to add the onClick event to call your method!
-             */}
-						<button
-							className="cta-button connect-wallet-button"
-							onClick={connectWalletHandler}
-						>
-							Connect Wallet To Get Started
-						</button>
-					</div>
+					{renderContent()}
 				</div>
 				<div className="footer-container">
 					<img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
