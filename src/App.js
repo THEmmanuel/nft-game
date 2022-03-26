@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { ethers } from 'ethers';
 import './App.css';
 import twitterLogo from './assets/twitter-logo.svg';
 import SelectCharacter from './Components/SelectCharacter/SelectCharacter';
@@ -86,8 +87,20 @@ const App = () => {
 		}
 	};
 
+	const checkNetwork = async () => {
+		try {
+			if (window.ethereum.networkVersion !== '4') {
+				alert('Please connect to Rinkeby!')
+			}
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
+
 	useEffect(() => {
 		checkIfWalletIsConnected();
+		checkNetwork();
 	}, []);
 
 	return (
