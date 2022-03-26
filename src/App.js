@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import twitterLogo from './assets/twitter-logo.svg';
 import SelectCharacter from './Components/SelectCharacter/SelectCharacter';
+import MyEpicGame from './utils/MyEpicGame.json';
+
 
 // Constants
 const TWITTER_HANDLE = '_buildspace';
