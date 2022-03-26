@@ -78,9 +78,8 @@ const App = () => {
 				method: 'eth_requestAccounts',
 			});
 
-			/*
-			 * Boom! This should print out public address once we authorize Metamask.
-			 */
+			// print out public address once we authorize Metamask.
+
 			console.log('Connected', accounts[0]);
 			setCurrentAccount(accounts[0]);
 		} catch (error) {
@@ -115,7 +114,8 @@ const App = () => {
 				signer
 			);
 
-			const txn = await gameContract.checkIfUserHasNFT()
+			const txn = await gameContract.checkIfUserHasNFT();
+			console.log(txn);
 			if (txn.name) {
 				console.log('User has character NFT');
 				setCharacterNFT(transformCharacterData(txn));
