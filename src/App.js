@@ -4,7 +4,7 @@ import './App.css';
 import twitterLogo from './assets/twitter-logo.svg';
 import SelectCharacter from './Components/SelectCharacter/SelectCharacter';
 import MyEpicGame from './utils/MyEpicGame.json';
-import { CONTRACT_ADDRESS, transformCharacterData} from './constants';
+import { CONTRACT_ADDRESS, transformCharacterData } from './constants';
 
 
 // Constants
