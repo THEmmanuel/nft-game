@@ -9,6 +9,10 @@ const Arena = ({ characterNFT }) => {
 	// Hold boss metadata
 	const [boss, setBoss] = useState(null);
 
+	const runAttackAction = async () => {
+
+	}
+
 	useEffect(() => {
 		const fetchBoss = async () => {
 			const bossTxn = await gameContract.getBigBoss();
@@ -40,8 +44,28 @@ const Arena = ({ characterNFT }) => {
 	}, [])
 
 	return (
-		<div className='arena-container'>
-			<p>BOSS GOES HERE</p>
+		<div className="arena-container">
+			{boss && (
+				<div className="boss-container">
+					<div className={`boss-content`}>
+						<h2>{boss.name}</h2>
+						<div className="image-content">
+							<img src={boss.imageURI} alt={`Boss ${boss.name}`} />
+							<div className="health-bar">
+								<progress value={boss.hp} max={boss.maxHp} />
+								<p>{`${boss.hp} / ${boss.maxHp} HP`}</p>
+							</div>
+						</div>
+					</div>
+					<div className="attack-container">
+						<button className="cta-button" onClick={runAttackAction}>
+							{`💥 Attack ${boss.name}`}
+						</button>
+					</div>
+				</div>
+			)}
+
+			{/* Character NFT */}
 			<p>CHARACTER NFT GOES HERE</p>
 		</div>
 	);
