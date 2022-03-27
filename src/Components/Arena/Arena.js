@@ -23,6 +23,14 @@ const Arena = ({ characterNFT }) => {
 			console.log('Ethereum object not found');
 		}
 	}, [])
-}
+
+	return (
+		<div className='arena-container'>
+			<p>BOSS GOES HERE</p>
+
+			<p>CHARACTER NFT GOES HERE</p>
+		</div>
+	);
+};
 
 export default Arena;
