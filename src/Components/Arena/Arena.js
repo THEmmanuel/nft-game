@@ -27,7 +27,6 @@ const Arena = ({ characterNFT }) => {
 	return (
 		<div className='arena-container'>
 			<p>BOSS GOES HERE</p>
-
 			<p>CHARACTER NFT GOES HERE</p>
 		</div>
 	);

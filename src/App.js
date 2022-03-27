@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import './App.css';
 import twitterLogo from './assets/twitter-logo.svg';
+
 import SelectCharacter from './Components/SelectCharacter/SelectCharacter';
+import Arena from './Components/Arena/Arena';
+
 import MyEpicGame from './utils/MyEpicGame.json';
 import { CONTRACT_ADDRESS, transformCharacterData } from './constants';
 
